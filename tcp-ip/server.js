@@ -3,22 +3,26 @@ var fs = require('fs');
 
 var HOST = '127.0.0.1';
 var PORT = 9999;
+var count = 0;
 
-net.createServer(function (sock) {
+net.createServer(function (conn) {
 
-  console.log('connected: ' + sock.remoteAddress + ':' + sock.remotePort);
+  conn.write('\033[92m Hey Welcome to liushaoqing\'s chat Room, There is '+count +' users in the room \033[39m');
+  conn.write('\b >> ')
+  count++;
 
-  sock.on('data', function (data) {
-    console.log('DATA ' + sock.remoteAddress + ': ' + data);
-    // sock.write('Hey client, You said "' + data + '"');
-    sock.pipe(process.stdout)
-    sock.end()
+  conn.on('data', function (data) {
+    console.log('DATA: ' + conn.remotePort + ': ' + data);
+    conn.write('got it: ' + data);
+    // conn.end()
   });
 
-  sock.on('close', function (data) {
-    console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
+  conn.on('close', function (data) {
+    count--;
+    console.log('USER QUIT: ' + conn.remotePort);
   });
 
 }).listen(PORT, HOST);
 
 console.log('Server listening on ' + HOST + ':' + PORT);
+console.log("\033[92m liushaoqing's chat room start \033[39m");
