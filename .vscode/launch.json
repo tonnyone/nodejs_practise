@@ -4,13 +4,21 @@
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-
     {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}\\tcp-ip\\client.js",
-      "console": "integratedTerminal"
+      "program": "${workspaceFolder}/app.js"
+    },
+    {
+      "name":"connect",
+      "type": "node",
+      "request": "launch",
+      "useWSL": true,
+      "program": "${workspaceFolder}\\connect\\index.js",
+      "cwd": "${workspaceFolder}\\connect\\",
+      // "console": "integratedTerminal"
+      // "console": "externalTerminal"
     }
   ]
 }
